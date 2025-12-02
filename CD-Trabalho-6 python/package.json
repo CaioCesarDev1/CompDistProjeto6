@@ -1,0 +1,23 @@
+{
+  "name": "servico-streaming-musicas",
+  "version": "1.0.0",
+  "description": "Serviço de Streaming de Músicas - Implementação em REST, SOAP, GraphQL e gRPC",
+  "main": "index.js",
+  "scripts": {
+    "rest:start": "cd rest && npm start",
+    "soap:start": "cd soap && npm start",
+    "grpc:start": "cd grpc && npm start",
+    "test:load": "k6 run tests/load-tests.js"
+  },
+  "keywords": [
+    "rest",
+    "soap",
+    "graphql",
+    "grpc",
+    "streaming",
+    "music"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+

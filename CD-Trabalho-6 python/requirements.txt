@@ -1,0 +1,36 @@
+# Framework Web
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+flask==3.0.0
+flask-cors==4.0.0
+
+# Banco de Dados
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+alembic==1.12.1
+
+# SOAP - Usando Flask com processamento XML manual
+flask==3.0.0
+lxml==4.9.3
+
+# GraphQL - Usando Graphene
+graphene==3.3
+
+# gRPC
+grpcio==1.59.3
+grpcio-tools==1.59.3
+protobuf==4.25.0
+
+# Testes de Carga
+locust==2.40.5
+
+# Utilitários
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+faker==19.6.2
+
+# Análise e Visualização
+pandas==2.1.4
+matplotlib==3.8.2
+

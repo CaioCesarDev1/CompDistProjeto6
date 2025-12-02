@@ -1,0 +1,433 @@
+openapi: 3.0.0
+info:
+  title: Serviço de Streaming de Músicas - REST API
+  version: 1.0.0
+  description: API REST para gerenciamento de usuários, músicas e playlists
+
+servers:
+  - url: http://localhost:3001
+    description: Servidor local
+
+paths:
+  /api/usuarios:
+    get:
+      summary: Listar todos os usuários
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+    post:
+      summary: Criar novo usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - idade
+              properties:
+                nome:
+                  type: string
+                idade:
+                  type: integer
+      responses:
+        '201':
+          description: Usuário criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+
+  /api/usuarios/{id}:
+    get:
+      summary: Obter usuário por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuário encontrado
+        '404':
+          description: Usuário não encontrado
+    put:
+      summary: Atualizar usuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioUpdate'
+      responses:
+        '200':
+          description: Usuário atualizado
+        '404':
+          description: Usuário não encontrado
+    delete:
+      summary: Remover usuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Usuário removido
+        '404':
+          description: Usuário não encontrado
+
+  /api/usuarios/{usuarioId}/playlists:
+    get:
+      summary: Listar playlists de um usuário
+      parameters:
+        - name: usuarioId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de playlists do usuário
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Playlist'
+
+  /api/musicas:
+    get:
+      summary: Listar todas as músicas
+      responses:
+        '200':
+          description: Lista de músicas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Musica'
+    post:
+      summary: Criar nova música
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - artista
+              properties:
+                nome:
+                  type: string
+                artista:
+                  type: string
+      responses:
+        '201':
+          description: Música criada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Musica'
+
+  /api/musicas/{id}:
+    get:
+      summary: Obter música por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Música encontrada
+        '404':
+          description: Música não encontrada
+    put:
+      summary: Atualizar música
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MusicaUpdate'
+      responses:
+        '200':
+          description: Música atualizada
+        '404':
+          description: Música não encontrada
+    delete:
+      summary: Remover música
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Música removida
+        '404':
+          description: Música não encontrada
+
+  /api/musicas/{musicaId}/playlists:
+    get:
+      summary: Listar playlists que contêm uma música
+      parameters:
+        - name: musicaId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de playlists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Playlist'
+
+  /api/playlists:
+    get:
+      summary: Listar todas as playlists
+      responses:
+        '200':
+          description: Lista de playlists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Playlist'
+    post:
+      summary: Criar nova playlist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - usuarioId
+              properties:
+                nome:
+                  type: string
+                usuarioId:
+                  type: string
+      responses:
+        '201':
+          description: Playlist criada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Playlist'
+
+  /api/playlists/{id}:
+    get:
+      summary: Obter playlist por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Playlist encontrada
+        '404':
+          description: Playlist não encontrada
+    put:
+      summary: Atualizar playlist
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlaylistUpdate'
+      responses:
+        '200':
+          description: Playlist atualizada
+        '404':
+          description: Playlist não encontrada
+    delete:
+      summary: Remover playlist
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Playlist removida
+        '404':
+          description: Playlist não encontrada
+
+  /api/playlists/{id}/musicas:
+    get:
+      summary: Listar músicas de uma playlist
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de músicas da playlist
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Musica'
+    post:
+      summary: Adicionar música à playlist
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - musicaId
+              properties:
+                musicaId:
+                  type: string
+      responses:
+        '200':
+          description: Música adicionada
+        '400':
+          description: Erro na requisição
+        '404':
+          description: Playlist não encontrada
+
+  /api/playlists/{id}/musicas/{musicaId}:
+    delete:
+      summary: Remover música de playlist
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: musicaId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Música removida
+        '404':
+          description: Playlist não encontrada
+
+components:
+  schemas:
+    Usuario:
+      type: object
+      properties:
+        id:
+          type: string
+        nome:
+          type: string
+        idade:
+          type: integer
+      required:
+        - id
+        - nome
+        - idade
+
+    UsuarioUpdate:
+      type: object
+      properties:
+        nome:
+          type: string
+        idade:
+          type: integer
+
+    Musica:
+      type: object
+      properties:
+        id:
+          type: string
+        nome:
+          type: string
+        artista:
+          type: string
+      required:
+        - id
+        - nome
+        - artista
+
+    MusicaUpdate:
+      type: object
+      properties:
+        nome:
+          type: string
+        artista:
+          type: string
+
+    Playlist:
+      type: object
+      properties:
+        id:
+          type: string
+        nome:
+          type: string
+        usuarioId:
+          type: string
+        musicasIds:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - nome
+        - usuarioId
+        - musicasIds
+
+    PlaylistUpdate:
+      type: object
+      properties:
+        nome:
+          type: string
+        usuarioId:
+          type: string
+

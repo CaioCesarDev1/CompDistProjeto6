@@ -1,0 +1,4 @@
+Method,Name,Error,Occurrences
+GET,Listar Músicas (SOAP),HTTPError('500 Server Error: INTERNAL SERVER ERROR for url: Listar Músicas (SOAP)'),3
+GET,Listar Playlists (SOAP),HTTPError('500 Server Error: INTERNAL SERVER ERROR for url: Listar Playlists (SOAP)'),1
+GET,Listar Usuários (SOAP),HTTPError('500 Server Error: INTERNAL SERVER ERROR for url: Listar Usuários (SOAP)'),3

@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:tns="http://streaming-musicas.com/soap"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://streaming-musicas.com/soap"
+             name="StreamingMusicasService">
+
+  <types>
+    <xsd:schema targetNamespace="http://streaming-musicas.com/soap">
+      
+      <xsd:complexType name="Usuario">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+          <xsd:element name="nome" type="xsd:string"/>
+          <xsd:element name="idade" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Musica">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+          <xsd:element name="nome" type="xsd:string"/>
+          <xsd:element name="artista" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="Playlist">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+          <xsd:element name="nome" type="xsd:string"/>
+          <xsd:element name="usuarioId" type="xsd:string"/>
+          <xsd:element name="musicasIds" type="tns:ArrayOfString"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="ArrayOfString">
+        <xsd:sequence>
+          <xsd:element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="ArrayOfUsuario">
+        <xsd:sequence>
+          <xsd:element name="usuario" type="tns:Usuario" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="ArrayOfMusica">
+        <xsd:sequence>
+          <xsd:element name="musica" type="tns:Musica" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="ArrayOfPlaylist">
+        <xsd:sequence>
+          <xsd:element name="playlist" type="tns:Playlist" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+    </xsd:schema>
+  </types>
+
+  <message name="CriarUsuarioRequest">
+    <part name="nome" type="xsd:string"/>
+    <part name="idade" type="xsd:int"/>
+  </message>
+  <message name="CriarUsuarioResponse">
+    <part name="usuario" type="tns:Usuario"/>
+  </message>
+
+  <message name="ObterUsuarioRequest">
+    <part name="id" type="xsd:string"/>
+  </message>
+  <message name="ObterUsuarioResponse">
+    <part name="usuario" type="tns:Usuario"/>
+  </message>
+
+  <message name="ListarUsuariosRequest"/>
+  <message name="ListarUsuariosResponse">
+    <part name="usuarios" type="tns:ArrayOfUsuario"/>
+  </message>
+
+  <message name="AtualizarUsuarioRequest">
+    <part name="id" type="xsd:string"/>
+    <part name="nome" type="xsd:string"/>
+    <part name="idade" type="xsd:int"/>
+  </message>
+  <message name="AtualizarUsuarioResponse">
+    <part name="usuario" type="tns:Usuario"/>
+  </message>
+
+  <message name="RemoverUsuarioRequest">
+    <part name="id" type="xsd:string"/>
+  </message>
+  <message name="RemoverUsuarioResponse">
+    <part name="sucesso" type="xsd:boolean"/>
+  </message>
+
+  <message name="CriarMusicaRequest">
+    <part name="nome" type="xsd:string"/>
+    <part name="artista" type="xsd:string"/>
+  </message>
+  <message name="CriarMusicaResponse">
+    <part name="musica" type="tns:Musica"/>
+  </message>
+
+  <message name="ObterMusicaRequest">
+    <part name="id" type="xsd:string"/>
+  </message>
+  <message name="ObterMusicaResponse">
+    <part name="musica" type="tns:Musica"/>
+  </message>
+
+  <message name="ListarMusicasRequest"/>
+  <message name="ListarMusicasResponse">
+    <part name="musicas" type="tns:ArrayOfMusica"/>
+  </message>
+
+  <message name="AtualizarMusicaRequest">
+    <part name="id" type="xsd:string"/>
+    <part name="nome" type="xsd:string"/>
+    <part name="artista" type="xsd:string"/>
+  </message>
+  <message name="AtualizarMusicaResponse">
+    <part name="musica" type="tns:Musica"/>
+  </message>
+
+  <message name="RemoverMusicaRequest">
+    <part name="id" type="xsd:string"/>
+  </message>
+  <message name="RemoverMusicaResponse">
+    <part name="sucesso" type="xsd:boolean"/>
+  </message>
+
+  <message name="CriarPlaylistRequest">
+    <part name="nome" type="xsd:string"/>
+    <part name="usuarioId" type="xsd:string"/>
+  </message>
+  <message name="CriarPlaylistResponse">
+    <part name="playlist" type="tns:Playlist"/>
+  </message>
+
+  <message name="ObterPlaylistRequest">
+    <part name="id" type="xsd:string"/>
+  </message>
+  <message name="ObterPlaylistResponse">
+    <part name="playlist" type="tns:Playlist"/>
+  </message>
+
+  <message name="ListarPlaylistsRequest"/>
+  <message name="ListarPlaylistsResponse">
+    <part name="playlists" type="tns:ArrayOfPlaylist"/>
+  </message>
+
+  <message name="ListarPlaylistsPorUsuarioRequest">
+    <part name="usuarioId" type="xsd:string"/>
+  </message>
+  <message name="ListarPlaylistsPorUsuarioResponse">
+    <part name="playlists" type="tns:ArrayOfPlaylist"/>
+  </message>
+
+  <message name="ListarMusicasPorPlaylistRequest">
+    <part name="playlistId" type="xsd:string"/>
+  </message>
+  <message name="ListarMusicasPorPlaylistResponse">
+    <part name="musicas" type="tns:ArrayOfMusica"/>
+  </message>
+
+  <message name="ListarPlaylistsPorMusicaRequest">
+    <part name="musicaId" type="xsd:string"/>
+  </message>
+  <message name="ListarPlaylistsPorMusicaResponse">
+    <part name="playlists" type="tns:ArrayOfPlaylist"/>
+  </message>
+
+  <message name="AtualizarPlaylistRequest">
+    <part name="id" type="xsd:string"/>
+    <part name="nome" type="xsd:string"/>
+    <part name="usuarioId" type="xsd:string"/>
+  </message>
+  <message name="AtualizarPlaylistResponse">
+    <part name="playlist" type="tns:Playlist"/>
+  </message>
+
+  <message name="AdicionarMusicaAPlaylistRequest">
+    <part name="playlistId" type="xsd:string"/>
+    <part name="musicaId" type="xsd:string"/>
+  </message>
+  <message name="AdicionarMusicaAPlaylistResponse">
+    <part name="playlist" type="tns:Playlist"/>
+  </message>
+
+  <message name="RemoverMusicaDePlaylistRequest">
+    <part name="playlistId" type="xsd:string"/>
+    <part name="musicaId" type="xsd:string"/>
+  </message>
+  <message name="RemoverMusicaDePlaylistResponse">
+    <part name="playlist" type="tns:Playlist"/>
+  </message>
+
+  <message name="RemoverPlaylistRequest">
+    <part name="id" type="xsd:string"/>
+  </message>
+  <message name="RemoverPlaylistResponse">
+    <part name="sucesso" type="xsd:boolean"/>
+  </message>
+
+  <portType name="StreamingMusicasPortType">
+    <operation name="criarUsuario">
+      <input message="tns:CriarUsuarioRequest"/>
+      <output message="tns:CriarUsuarioResponse"/>
+    </operation>
+    <operation name="obterUsuario">
+      <input message="tns:ObterUsuarioRequest"/>
+      <output message="tns:ObterUsuarioResponse"/>
+    </operation>
+    <operation name="listarUsuarios">
+      <input message="tns:ListarUsuariosRequest"/>
+      <output message="tns:ListarUsuariosResponse"/>
+    </operation>
+    <operation name="atualizarUsuario">
+      <input message="tns:AtualizarUsuarioRequest"/>
+      <output message="tns:AtualizarUsuarioResponse"/>
+    </operation>
+    <operation name="removerUsuario">
+      <input message="tns:RemoverUsuarioRequest"/>
+      <output message="tns:RemoverUsuarioResponse"/>
+    </operation>
+    <operation name="criarMusica">
+      <input message="tns:CriarMusicaRequest"/>
+      <output message="tns:CriarMusicaResponse"/>
+    </operation>
+    <operation name="obterMusica">
+      <input message="tns:ObterMusicaRequest"/>
+      <output message="tns:ObterMusicaResponse"/>
+    </operation>
+    <operation name="listarMusicas">
+      <input message="tns:ListarMusicasRequest"/>
+      <output message="tns:ListarMusicasResponse"/>
+    </operation>
+    <operation name="atualizarMusica">
+      <input message="tns:AtualizarMusicaRequest"/>
+      <output message="tns:AtualizarMusicaResponse"/>
+    </operation>
+    <operation name="removerMusica">
+      <input message="tns:RemoverMusicaRequest"/>
+      <output message="tns:RemoverMusicaResponse"/>
+    </operation>
+    <operation name="criarPlaylist">
+      <input message="tns:CriarPlaylistRequest"/>
+      <output message="tns:CriarPlaylistResponse"/>
+    </operation>
+    <operation name="obterPlaylist">
+      <input message="tns:ObterPlaylistRequest"/>
+      <output message="tns:ObterPlaylistResponse"/>
+    </operation>
+    <operation name="listarPlaylists">
+      <input message="tns:ListarPlaylistsRequest"/>
+      <output message="tns:ListarPlaylistsResponse"/>
+    </operation>
+    <operation name="listarPlaylistsPorUsuario">
+      <input message="tns:ListarPlaylistsPorUsuarioRequest"/>
+      <output message="tns:ListarPlaylistsPorUsuarioResponse"/>
+    </operation>
+    <operation name="listarMusicasPorPlaylist">
+      <input message="tns:ListarMusicasPorPlaylistRequest"/>
+      <output message="tns:ListarMusicasPorPlaylistResponse"/>
+    </operation>
+    <operation name="listarPlaylistsPorMusica">
+      <input message="tns:ListarPlaylistsPorMusicaRequest"/>
+      <output message="tns:ListarPlaylistsPorMusicaResponse"/>
+    </operation>
+    <operation name="atualizarPlaylist">
+      <input message="tns:AtualizarPlaylistRequest"/>
+      <output message="tns:AtualizarPlaylistResponse"/>
+    </operation>
+    <operation name="adicionarMusicaAPlaylist">
+      <input message="tns:AdicionarMusicaAPlaylistRequest"/>
+      <output message="tns:AdicionarMusicaAPlaylistResponse"/>
+    </operation>
+    <operation name="removerMusicaDePlaylist">
+      <input message="tns:RemoverMusicaDePlaylistRequest"/>
+      <output message="tns:RemoverMusicaDePlaylistResponse"/>
+    </operation>
+    <operation name="removerPlaylist">
+      <input message="tns:RemoverPlaylistRequest"/>
+      <output message="tns:RemoverPlaylistResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="StreamingMusicasBinding" type="tns:StreamingMusicasPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="criarUsuario">
+      <soap:operation soapAction="criarUsuario"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="obterUsuario">
+      <soap:operation soapAction="obterUsuario"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="listarUsuarios">
+      <soap:operation soapAction="listarUsuarios"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="atualizarUsuario">
+      <soap:operation soapAction="atualizarUsuario"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="removerUsuario">
+      <soap:operation soapAction="removerUsuario"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="criarMusica">
+      <soap:operation soapAction="criarMusica"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="obterMusica">
+      <soap:operation soapAction="obterMusica"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="listarMusicas">
+      <soap:operation soapAction="listarMusicas"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="atualizarMusica">
+      <soap:operation soapAction="atualizarMusica"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="removerMusica">
+      <soap:operation soapAction="removerMusica"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="criarPlaylist">
+      <soap:operation soapAction="criarPlaylist"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="obterPlaylist">
+      <soap:operation soapAction="obterPlaylist"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="listarPlaylists">
+      <soap:operation soapAction="listarPlaylists"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="listarPlaylistsPorUsuario">
+      <soap:operation soapAction="listarPlaylistsPorUsuario"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="listarMusicasPorPlaylist">
+      <soap:operation soapAction="listarMusicasPorPlaylist"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="listarPlaylistsPorMusica">
+      <soap:operation soapAction="listarPlaylistsPorMusica"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="atualizarPlaylist">
+      <soap:operation soapAction="atualizarPlaylist"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="adicionarMusicaAPlaylist">
+      <soap:operation soapAction="adicionarMusicaAPlaylist"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="removerMusicaDePlaylist">
+      <soap:operation soapAction="removerMusicaDePlaylist"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="removerPlaylist">
+      <soap:operation soapAction="removerPlaylist"/>
+      <input><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+  </binding>
+
+  <service name="StreamingMusicasService">
+    <port name="StreamingMusicasPort" binding="tns:StreamingMusicasBinding">
+      <soap:address location="http://localhost:3002/soap"/>
+    </port>
+  </service>
+
+</definitions>
