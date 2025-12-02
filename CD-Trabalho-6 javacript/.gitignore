@@ -1,0 +1,39 @@
+# Node.js
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Testes
+load_test_results/*.csv
+load_test_results/*.html
+load_test_results/*.png
+!load_test_results/.gitkeep
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# gRPC gerado
+grpc/proto/*_pb2.py
+grpc/proto/*_pb2_grpc.py
+grpc/proto/grpc_proto.py
+grpc/proto/grpc_proto_grpc.py
+

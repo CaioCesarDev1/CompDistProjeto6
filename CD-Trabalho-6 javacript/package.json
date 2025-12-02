@@ -1,0 +1,38 @@
+{
+  "name": "streaming-musicas-nodejs",
+  "version": "1.0.0",
+  "description": "Serviço de Streaming de Músicas - APIs REST, SOAP e GraphQL em Node.js",
+  "main": "index.js",
+  "scripts": {
+    "rest": "node rest/main.js",
+    "soap": "node soap/main.js",
+    "graphql": "node graphql/main.js",
+    "start:rest": "node rest/main.js",
+    "start:soap": "node soap/main.js",
+    "start:graphql": "node graphql/main.js"
+  },
+  "keywords": [
+    "rest",
+    "soap",
+    "graphql",
+    "api",
+    "streaming",
+    "musicas"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "graphql": "^15.8.0",
+    "express-graphql": "^0.12.0",
+    "uuid": "^9.0.1",
+    "xml2js": "^0.6.2",
+    "pg": "^8.11.3",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+

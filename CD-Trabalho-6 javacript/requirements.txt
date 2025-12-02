@@ -1,0 +1,19 @@
+# Framework Web
+flask==3.0.0
+flask-cors==4.0.0
+
+# GraphQL
+graphene==3.3
+
+# gRPC
+grpcio==1.59.3
+grpcio-tools==1.59.3
+protobuf==4.25.0
+
+# Testes de Carga
+locust==2.40.5
+
+# Análise e Visualização
+pandas==2.1.4
+matplotlib==3.8.2
+

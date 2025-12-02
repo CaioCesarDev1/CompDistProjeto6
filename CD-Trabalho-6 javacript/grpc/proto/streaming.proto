@@ -1,0 +1,191 @@
+syntax = "proto3";
+
+package streaming;
+
+service StreamingMusicasService {
+  // Usuários
+  rpc CriarUsuario (CriarUsuarioRequest) returns (UsuarioResponse);
+  rpc ObterUsuario (ObterUsuarioRequest) returns (UsuarioResponse);
+  rpc ListarUsuarios (ListarUsuariosRequest) returns (ListarUsuariosResponse);
+  rpc AtualizarUsuario (AtualizarUsuarioRequest) returns (UsuarioResponse);
+  rpc RemoverUsuario (RemoverUsuarioRequest) returns (RemoverUsuarioResponse);
+  
+  // Músicas
+  rpc CriarMusica (CriarMusicaRequest) returns (MusicaResponse);
+  rpc ObterMusica (ObterMusicaRequest) returns (MusicaResponse);
+  rpc ListarMusicas (ListarMusicasRequest) returns (ListarMusicasResponse);
+  rpc AtualizarMusica (AtualizarMusicaRequest) returns (MusicaResponse);
+  rpc RemoverMusica (RemoverMusicaRequest) returns (RemoverMusicaResponse);
+  
+  // Playlists
+  rpc CriarPlaylist (CriarPlaylistRequest) returns (PlaylistResponse);
+  rpc ObterPlaylist (ObterPlaylistRequest) returns (PlaylistResponse);
+  rpc ListarPlaylists (ListarPlaylistsRequest) returns (ListarPlaylistsResponse);
+  rpc ListarPlaylistsPorUsuario (ListarPlaylistsPorUsuarioRequest) returns (ListarPlaylistsResponse);
+  rpc ListarMusicasPorPlaylist (ListarMusicasPorPlaylistRequest) returns (ListarMusicasResponse);
+  rpc ListarPlaylistsPorMusica (ListarPlaylistsPorMusicaRequest) returns (ListarPlaylistsResponse);
+  rpc AtualizarPlaylist (AtualizarPlaylistRequest) returns (PlaylistResponse);
+  rpc AdicionarMusicaAPlaylist (AdicionarMusicaAPlaylistRequest) returns (PlaylistResponse);
+  rpc RemoverMusicaDePlaylist (RemoverMusicaDePlaylistRequest) returns (PlaylistResponse);
+  rpc RemoverPlaylist (RemoverPlaylistRequest) returns (RemoverPlaylistResponse);
+}
+
+// Mensagens de Entidade
+message Usuario {
+  string id = 1;
+  string nome = 2;
+  int32 idade = 3;
+}
+
+message Musica {
+  string id = 1;
+  string nome = 2;
+  string artista = 3;
+}
+
+message Playlist {
+  string id = 1;
+  string nome = 2;
+  string usuarioId = 3;
+  repeated string musicasIds = 4;
+}
+
+// Requests de Usuário
+message CriarUsuarioRequest {
+  string nome = 1;
+  int32 idade = 2;
+}
+
+message ObterUsuarioRequest {
+  string id = 1;
+}
+
+message ListarUsuariosRequest {
+}
+
+message AtualizarUsuarioRequest {
+  string id = 1;
+  string nome = 2;
+  int32 idade = 3;
+}
+
+message RemoverUsuarioRequest {
+  string id = 1;
+}
+
+// Responses de Usuário
+message UsuarioResponse {
+  Usuario usuario = 1;
+  string erro = 2;
+}
+
+message ListarUsuariosResponse {
+  repeated Usuario usuarios = 1;
+  string erro = 2;
+}
+
+message RemoverUsuarioResponse {
+  bool sucesso = 1;
+  string erro = 2;
+}
+
+// Requests de Música
+message CriarMusicaRequest {
+  string nome = 1;
+  string artista = 2;
+}
+
+message ObterMusicaRequest {
+  string id = 1;
+}
+
+message ListarMusicasRequest {
+}
+
+message AtualizarMusicaRequest {
+  string id = 1;
+  string nome = 2;
+  string artista = 3;
+}
+
+message RemoverMusicaRequest {
+  string id = 1;
+}
+
+// Responses de Música
+message MusicaResponse {
+  Musica musica = 1;
+  string erro = 2;
+}
+
+message ListarMusicasResponse {
+  repeated Musica musicas = 1;
+  string erro = 2;
+}
+
+message RemoverMusicaResponse {
+  bool sucesso = 1;
+  string erro = 2;
+}
+
+// Requests de Playlist
+message CriarPlaylistRequest {
+  string nome = 1;
+  string usuarioId = 2;
+}
+
+message ObterPlaylistRequest {
+  string id = 1;
+}
+
+message ListarPlaylistsRequest {
+}
+
+message ListarPlaylistsPorUsuarioRequest {
+  string usuarioId = 1;
+}
+
+message ListarMusicasPorPlaylistRequest {
+  string playlistId = 1;
+}
+
+message ListarPlaylistsPorMusicaRequest {
+  string musicaId = 1;
+}
+
+message AtualizarPlaylistRequest {
+  string id = 1;
+  string nome = 2;
+  string usuarioId = 3;
+}
+
+message AdicionarMusicaAPlaylistRequest {
+  string playlistId = 1;
+  string musicaId = 2;
+}
+
+message RemoverMusicaDePlaylistRequest {
+  string playlistId = 1;
+  string musicaId = 2;
+}
+
+message RemoverPlaylistRequest {
+  string id = 1;
+}
+
+// Responses de Playlist
+message PlaylistResponse {
+  Playlist playlist = 1;
+  string erro = 2;
+}
+
+message ListarPlaylistsResponse {
+  repeated Playlist playlists = 1;
+  string erro = 2;
+}
+
+message RemoverPlaylistResponse {
+  bool sucesso = 1;
+  string erro = 2;
+}
+
